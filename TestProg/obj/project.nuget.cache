@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DXz54mSZsgo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ARTYOM\\source\\repos\\TestProg\\TestProg\\TestProg.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ARTYOM\\.nuget\\packages\\virtualizingwrappanel\\2.0.11\\virtualizingwrappanel.2.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

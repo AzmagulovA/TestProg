@@ -1,0 +1,151 @@
+﻿<Window x:Class="TestProg.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vwp="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
+        xmlns:local="clr-namespace:TestProg"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="800"
+        MinHeight="600"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Resources>
+        <Style x:Key="Standard">
+            
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Control.FontSize" Value="18" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.15*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.15*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.15*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width =" 0.15*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.15*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="0"
+                     Grid.Column="0"
+                     Height="50"/>
+            <Viewbox Grid.Row="3"
+                    Grid.Column="0"
+                    Height="50"/>
+        <Border  Grid.Column="1"
+                 Grid.Row="1"
+                 BorderBrush="DarkGray"
+                 BorderThickness="1">
+
+            <Grid x:Name="LeftPannel"
+                ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="ButtonPannel"
+                    Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Row="0" Grid.Column="0"
+                        Style="{StaticResource Standard}"
+                   Content="Ширина фрагмента:"/>
+                    
+                    <Label Grid.Row="1" Grid.Column="0" 
+                   Style="{StaticResource Standard}"
+                   Content="Высота фрагмента:"/>
+                    
+                    <Label Grid.Row="2" Grid.Column="0"
+                   Style="{StaticResource Standard}"
+                   Content="Количество фрагментов:"/>
+
+                    <Border BorderThickness="1" Grid.Row="0" Grid.Column="1" BorderBrush="Black">
+                        <TextBox x:Name="WidthBlock"
+                             Text ="60"
+                             Style="{StaticResource Standard}"
+                     />
+                    </Border>
+                    
+                    <Border BorderThickness="1" Grid.Row="1" Grid.Column="1" BorderBrush="Black">
+                        <TextBox x:Name="HeightBlock"
+                             Text ="60"
+                             Style="{StaticResource Standard}"
+                     />
+                    </Border>
+
+
+                    <Border BorderThickness="1" Grid.Row="2" Grid.Column="1" BorderBrush="Black">
+                        <TextBox x:Name="CountBlock" Grid.Row="2" Grid.Column="1"
+                             Text ="7"
+                             Style="{StaticResource Standard}"
+                     />
+                    </Border>
+                    <Button x:Name="Generate" Grid.Row="3" Grid.Column="0" 
+                    Content="Сгенерировать"
+                    FontSize="20"
+                    Margin="5" 
+                    Padding="5"
+                    Click="Generate_Click"/>
+                </Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="1"
+                      Grid.Column="3">
+                    <ListView x:Name="ListPanel" 
+                              ItemsSource="{DynamicResource ResourceKey=fragments}"
+                       d:ItemsSource="{d:SampleData ItemCount=5}"
+                       >
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding PictureNumb}">№Номер картинки</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Coords.X}" Width="100">X</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Coords.Y}">Y</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+                </ScrollViewer>
+
+            </Grid>
+        </Border>
+        <Border 
+         Grid.Row="1"
+         Grid.Column="3"
+         BorderBrush="DarkGray"
+         BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Visible"
+                          >
+                <ItemsControl 
+                    x:Name="PicturesPanel"
+                    HorizontalAlignment="Left">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <vwp:VirtualizingWrapPanel 
+                                IsItemsHost="True"
+                                VirtualizationMode="Recycling"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+
+            </ScrollViewer>
+        </Border>
+    </Grid>
+
+</Window>
